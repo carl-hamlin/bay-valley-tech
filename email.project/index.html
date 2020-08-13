@@ -40,8 +40,10 @@
         </div>
         <div class = 'dependent-content content-element' id = 'econtent'></div>
         <div class = 'content-element' id = 'ereply-element'>
-          <textbox id = 'ereplytext' type = 'text'></textbox>
-          <button id = 'ereplybutton' onClick = 'postReply()'>Reply</button>
+          <textbox contentEditable = true id = 'ereplytext' type = 'text'></textbox>
+          <div id = 'ereplybuttonholder'>
+            <button id = 'ereplybutton' onClick = 'postReply()'>Reply</button>
+          </div>
         </div>
       </div>
     </div>

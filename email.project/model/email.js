@@ -13,6 +13,7 @@ var inbox = [
     received: 1,
     senderEName: 'LinkedIn',
     senderProper: 'do-not-reply@linkedin.com',
+    recvBy: 'hamlin.carlisle@gmx.com',
     time: '08.15.2020 14:45',
     subject: 'You have a new connection request.',
     content: 'Hey! You! Someone\'s trying to scam your ass on LinkedIn!',
@@ -27,6 +28,7 @@ var inbox = [
     received: 1,
     senderEName: 'Michael Scott Daily Quotes',
     senderProper: 're-reply@theofficenbc.com',
+    recvBy: 'hamlin.carlisle@gmx.com',
     time: '06.03.2020 12:28',
     subject: "I'm optimistic because every day I get a little more desperate.",
     content: '"Friends joke with one another. \'Hey, you\'re poor.\' \'Hey, your momma\'s dead.\' That\'s what friends do.\"<br><br>\"It\'s a good thing Russia doesn\'t exist anymore.\"<br><br>\"You cheated on me? When I specifically asked you not to?\"<br><br>\"It just seems awfully mean. But sometimes the ends justify the mean.\"<br><br>\"Reverse psychology is an awesome tool. I don\'t know if you guys know about it, but basically you make someone think the opposite of what you believe, and that tricks them into doing something stupid. Works like a charm.\"',
@@ -41,6 +43,7 @@ var inbox = [
     received: 1,
     senderEName: 'Lamar Software',
     senderProper: 'taylor@lamarsoftware.io',
+    recvBy: 'hamlin.carlisle@gmx.com',
     time: '02.09.2020 21:31',
     subject: 'Learn how you can give us money by calling (209) 322 7593',
     content: 'Hi, I\'m Taylor Lamar, and I want your money.<br><br>If you\'re interested in giving me your money, and I know you are, call me at the number specififed in the subject of this email, and we\'ll have a chat about how we can make that happen. Tootles!',
@@ -56,6 +59,8 @@ var inbox = [
 var displayEmail      = function(displayType, id, interfaceText) {
   var emails = 0;
 
+  document.getElementById('ereply-element').style.visibility = 'hidden';
+
   document.getElementById('rostercontainer').innerHTML = '';
   document.getElementById('rostercontainer').setAttribute('displaytype', displayType);
   
@@ -67,8 +72,10 @@ var displayEmail      = function(displayType, id, interfaceText) {
 
       a.addEventListener('click', function(e) {
         toggleContent('visible');
+
+        document.getElementById('ereply-element').style.visibility = 'hidden';
         
-        document.getElementById('eheader').innerHTML = '<div>To: hamlin.carlisle@gmx.com</div><div>From: ' + inbox[this.getAttribute('index')].senderProper + '</div>';
+        document.getElementById('eheader').innerHTML = '<div>To: ' + inbox[this.getAttribute('index')].recvBy + '</div><div>From: ' + inbox[this.getAttribute('index')].senderProper + '</div>';
         document.getElementById('etitle').innerHTML = inbox[this.getAttribute('index')].senderEName;
         document.getElementById('econtent').innerHTML = inbox[this.getAttribute('index')].content;
         document.getElementById('econtent').setAttribute('index', this.getAttribute('index'));
@@ -107,11 +114,41 @@ var displayEmail      = function(displayType, id, interfaceText) {
 
 var composeEmail      = function() {};
 
-var enableReply       = function() {};
+var enableReply       = function() {
+  document.getElementById('ereply-element').style.visibility  = 'visible';
+  document.getElementById('ereplytext').focus();
+  document.getElementById('ereplytext').innerText             = 'At ' + inbox[document.getElementById('econtent').getAttribute('index')].time + ', ' + inbox[document.getElementById('econtent').getAttribute('index')].senderProper + ' wrote: \n> ' + inbox[document.getElementById('econtent').getAttribute('index')].content.split('<br>').join('\n').split('&gt;').join('>') + '\n\n\n';
+  document.getElementById('ereplytext').value                 = 'At ' + inbox[document.getElementById('econtent').getAttribute('index')].time + ', ' + inbox[document.getElementById('econtent').getAttribute('index')].senderProper + ' wrote: \n> ' + inbox[document.getElementById('econtent').getAttribute('index')].content.split('<br>').join('\n').split('&gt;').join('>') + '\n\n\n';
+};
 
 var etdots            = function() {};
 
-var postReply         = function() {};
+var postReply         = function() {
+  document.getElementById('ereply-element').style.visibility  = 'hidden';
+
+  inbox[document.getElementById('econtent').getAttribute('index')].replied = 1;
+
+  var eNow = new Date();
+
+  inbox.push({
+    read: 1,
+    received: 0,
+    senderEName: 'Carl Hamlin',
+    senderProper: 'hamlin.carlisle@gmx.com',
+    recvBy: inbox[document.getElementById('econtent').getAttribute('index')].senderProper,
+    time: ((eNow.getMonth().length > 1) ? eNow.getMonth() : '0' + eNow.getMonth()) + '.' + ((eNow.getDate() > 9) ? eNow.getDate() : '0' + eNow.getDate()) + '.' + eNow.getFullYear() + ' ' + eNow.getHours() + ':' + eNow.getMinutes(),
+    subject: 'RE: ' + inbox[document.getElementById('econtent').getAttribute('index')].subject,
+    content: document.getElementById('ereplytext').innerHTML,
+    tagged: 0,
+    important: 0,
+    sent: 1,
+    replied: 0,
+    draft: 0,
+    trash: 0
+  });
+
+  alert('Reply sent!');
+};
 
 var searchEmail       = function(searchText) {};
 
