@@ -1,0 +1,204 @@
+input[type = 'text'] {
+  line-height: 20px;
+  padding = none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  font-family: Arial;
+  height: 100vh;
+}
+
+.content-element {
+  display: flex;
+  margin-top: 5px;
+}
+
+.dependent-content {
+  visibility: hidden;
+}
+
+.ebutton {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  min-height: 20px;
+  min-width: 20px;
+}
+
+.esender {
+  align-self: flex-start;
+  display: flex;
+  flex: 2;
+  font-weight: 700;
+}
+
+.etime {
+  align-self: flex-end;
+  display: flex;
+  flex: 1;
+}
+
+.navitem {
+  text-align: left;
+  color: white;
+  flex: 1;
+  margin: 10px 10px 10px 0px;
+}
+
+.roster-element {
+  border-radius: 5px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-size: 12px;
+  margin-bottom: 15px;
+  min-height: 100px;
+}
+
+.roster-element:hover {
+  background-color: white;
+  box-shadow: 5px 10px 10px;
+  font-size: 14px;
+}
+
+.roster-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 2px 2px 2px 2px;
+}
+
+.search-element {
+  border: none;
+}
+
+#compose-button {
+  background-color: #e3b23c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  flex: 1;
+  width: 80%;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  font-size: 12px;
+  margin: 5px 60px 5px 60px;
+}
+
+#ebuttons {
+  flex: 1;
+}
+
+#econtent {
+  margin-top: 40px;
+}
+
+#eheader {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+#ereply {
+  background-image: url('../data/reply.png');
+}
+
+#ereply-element {
+  visibility: hidden;
+}
+
+#etitle {
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  flex: 4;
+  margin-top: 10px;
+}
+
+#etdots {
+  background-image: url('../data/tdots.png');
+}
+
+#etrash {
+  background-image: url('../data/trash.png');
+}
+
+#micon {
+  flex: 1;
+  max-height: 22px;
+  max-width: 22px;
+}
+
+#nav {
+  align-items: center;
+  background-color: #423d37;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#navitems {
+  flex: 12;
+  width: 80%;
+}
+
+#roster {
+  align-items: center;
+  background-color: #f4f3ef;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+}
+
+#rostersearch {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px;
+  width: 90%;
+}
+
+#rostercontainer {
+  flex: 6;
+  width: 90%;
+}
+
+#search-input {
+  flex: 2;
+}
+
+#welcome {
+  align-items: center;
+  display: flex;
+  flex: 2;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+#wicon {
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  flex: 1;
+  margin: 2px;
+  width: 25%;
+}
+
+#wmessage {
+  color: white;
+  font-size: 10px;
+  flex: 6;
+  margin-left: 5px;
+}

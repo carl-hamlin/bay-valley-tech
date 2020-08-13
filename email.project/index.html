@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel = 'stylesheet' type = 'text/css' href = './css/main.css'>
+    <script src = './model/email.js'></script>
+  </head>
+  <body onload = 'displayEmail(0)'>
+    <div class = 'container'>
+      <div id = 'nav'>
+        <div id = 'welcome'>
+          <img id = 'wicon' src = './data/wicon.png'></img>
+          <div id = 'wmessage'>Welcome, !</div>
+        </div>
+        <button id = 'compose-button' onClick = 'composeEmail'>Compose</button>
+        <div id = 'navitems'>
+          <div class = 'navitem' id = 'navinbox'      onClick = 'dispatch("inbox")'     >Inbox</div>
+          <div class = 'navitem' id = 'navtagged'     onClick = 'dispatch("tagged")'    >Tagged</div>
+          <div class = 'navitem' id = 'navimportant'  onClick = 'dispatch("important")' >Important</div>
+          <div class = 'navitem' id = 'navsent'       onClick = 'dispatch("sent")'      >Sent Mail</div>
+          <div class = 'navitem' id = 'navdrafts'     onClick = 'dispatch("drafts")'    >Drafts</div>
+          <div class = 'navitem' id = 'navtrash'      onClick = 'dispatch("trash")'     >Trash</div>
+        </div>
+      </div>
+      <div id = 'roster'>
+        <div id = 'rostersearch'>
+          <img class = 'search-element' id = 'micon' src = './data/micon.jpg' onClick = 'searchEmail(category)'>
+          <input class = 'search-element' id = 'search-input' type = 'text' placeholder = 'Search for emails'></input>
+        </div>
+        <div id = 'rostercontainer'></div>
+      </div>
+      <div id = 'content'>
+        <div class = 'dependent-content content-element' id = 'eheader'></div>
+        <div class = 'dependent-content content-element' id = 'etitlebar'>
+          <div id = 'etitle'></div>
+          <div id = 'ebuttons'>
+            <button class = 'ebutton' id = 'etrash' onClick = 'trashEmail()'  ></button>
+            <button class = 'ebutton' id = 'ereply' onClick = 'enableReply()' ></button>
+            <button class = 'ebutton' id = 'etdots' onClick = 'etdots()'      ></button>
+          </div>
+        </div>
+        <div class = 'dependent-content content-element' id = 'econtent'></div>
+        <div class = 'content-element' id = 'ereply-element'>
+          <textbox id = 'ereplytext' type = 'text'></textbox>
+          <button id = 'ereplybutton' onClick = 'postReply()'>Reply</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
