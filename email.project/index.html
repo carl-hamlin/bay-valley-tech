@@ -13,12 +13,12 @@
         </div>
         <button id = 'compose-button' onClick = 'composeEmail'>Compose</button>
         <div id = 'navitems'>
-          <div class = 'navitem' id = 'navinbox'      onClick = 'dispatch("inbox")'     >Inbox</div>
-          <div class = 'navitem' id = 'navtagged'     onClick = 'dispatch("tagged")'    >Tagged</div>
-          <div class = 'navitem' id = 'navimportant'  onClick = 'dispatch("important")' >Important</div>
-          <div class = 'navitem' id = 'navsent'       onClick = 'dispatch("sent")'      >Sent Mail</div>
-          <div class = 'navitem' id = 'navdrafts'     onClick = 'dispatch("drafts")'    >Drafts</div>
-          <div class = 'navitem' id = 'navtrash'      onClick = 'dispatch("trash")'     >Trash</div>
+          <div class = 'navitem' id = 'navinbox'      onClick = 'displayEmail(0)' >Inbox</div>
+          <div class = 'navitem' id = 'navtagged'     onClick = 'displayEmail(1)' >Tagged</div>
+          <div class = 'navitem' id = 'navimportant'  onClick = 'displayEmail(2)' >Important</div>
+          <div class = 'navitem' id = 'navsent'       onClick = 'displayEmail(3)' >Sent Mail</div>
+          <div class = 'navitem' id = 'navdrafts'     onClick = 'displayEmail(4)' >Drafts</div>
+          <div class = 'navitem' id = 'navtrash'      onClick = 'displayEmail(5)' >Trash</div>
         </div>
       </div>
       <div id = 'roster'>

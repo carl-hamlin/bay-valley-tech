@@ -48,6 +48,11 @@ input[type = 'text'] {
   margin: 10px 10px 10px 0px;
 }
 
+.read {
+  font-style: italic;
+  color: darkgray;
+}
+
 .roster-element {
   border-radius: 5px;
   display: flex;

@@ -1,14 +1,15 @@
 var displayEmailMeta  = [
-  ['received',  'navinbox',     'Inbox'     ],
-  ['tagged',    'navtagged',    'Tagged'    ],
-  ['important', 'navimportant', 'Important' ],
-  ['sent',      'navsent',      'Sent'      ],
-  ['draft',     'navdrafts',    'Drafts'    ],
-  ['trash',     'navtrash',     'Trash'     ]
+  ['received',  'navinbox',     'Inbox',      0],
+  ['tagged',    'navtagged',    'Tagged',     0],
+  ['important', 'navimportant', 'Important',  0],
+  ['sent',      'navsent',      'Sent Mail',  0],
+  ['draft',     'navdrafts',    'Drafts',     0],
+  ['trash',     'navtrash',     'Trash',      0]
 ]
 
 var inbox = [
   {
+    read: 0,
     received: 1,
     senderEName: 'LinkedIn',
     senderProper: 'do-not-reply@linkedin.com',
@@ -22,6 +23,7 @@ var inbox = [
     draft: 0,
     trash: 0
   }, {
+    read: 0,
     received: 1,
     senderEName: 'Michael Scott Daily Quotes',
     senderProper: 're-reply@theofficenbc.com',
@@ -35,12 +37,13 @@ var inbox = [
     draft: 0,
     trash: 0
   }, {
+    read: 0,
     received: 1,
     senderEName: 'Lamar Software',
     senderProper: 'taylor@lamarsoftware.io',
     time: '02.09.2020 21:31',
     subject: 'Learn how you can give us money by calling (209) 322 7593',
-    content: 'Hi, I\'m Taylor Lamar, and I want your money. If you\'re interested in giving me your money, and I know you are, call me at the number specififed in the subject of this email, and we\'ll have a chat about how we can make that happen. Tootles!',
+    content: 'Hi, I\'m Taylor Lamar, and I want your money.<br><br>If you\'re interested in giving me your money, and I know you are, call me at the number specififed in the subject of this email, and we\'ll have a chat about how we can make that happen. Tootles!',
     tagged: 0,
     important: 0,
     sent: 0,
@@ -65,25 +68,44 @@ var displayEmail      = function(displayType, id, interfaceText) {
       a.addEventListener('click', function(e) {
         toggleContent('visible');
         
-        document.getElementById('eheader').innerHTML = "<div>To: hamlin.carlisle@gmx.com</div><div>From: " + inbox[this.getAttribute('index')].senderProper + "</div>";
+        document.getElementById('eheader').innerHTML = '<div>To: hamlin.carlisle@gmx.com</div><div>From: ' + inbox[this.getAttribute('index')].senderProper + '</div>';
         document.getElementById('etitle').innerHTML = inbox[this.getAttribute('index')].senderEName;
         document.getElementById('econtent').innerHTML = inbox[this.getAttribute('index')].content;
         document.getElementById('econtent').setAttribute('index', this.getAttribute('index'));
+
+        inbox[this.getAttribute('index')].read = 1;
+
+        this.classList.add('read');
+
+        displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][3]--
+        if (displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][3] > 0) {
+          document.getElementById(displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][1]).innerHTML = displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][2] + ' (' + displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][3] + ')';
+        } else {
+          document.getElementById(displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][1]).innerHTML = displayEmailMeta[document.getElementById('rostercontainer').getAttribute('displaytype')][2];
+        }
       });
+
+      if (!inbox[i].read) {
+        emails++;
+      } else {
+        a.classList.add('read');
+      }
 
       a.innerHTML = "<div class = 'roster-row'><div class = 'esender'>" + inbox[i].senderEName + "</div><div class = 'etime'>" + inbox[i].time + "</div></div><div class = 'roster-row'><div class = 'esubject'>" + inbox[i].subject + "</div></div>";
       document.getElementById('rostercontainer').appendChild(a);
-
-      emails++;
     }
   }
 
-  document.getElementById(displayEmailMeta[displayType][1]).innerHTML = displayEmailMeta[displayType][2] + ' (' + emails + ')';
+  displayEmailMeta[displayType][3] = emails;
+
+  if (displayEmailMeta[displayType][3] > 0) {
+    document.getElementById(displayEmailMeta[displayType][1]).innerHTML = displayEmailMeta[displayType][2] + ' (' + displayEmailMeta[displayType][3] + ')';
+  } else {
+    document.getElementById(displayEmailMeta[displayType][1]).innerHTML = displayEmailMeta[displayType][2];
+  }
 };
 
 var composeEmail      = function() {};
-
-var dispatch          = function(category) {};
 
 var enableReply       = function() {};
 
