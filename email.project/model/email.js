@@ -1,3 +1,24 @@
+/******************************************************************************
+ *  displayEmailMeta
+ *
+ *  Indexing for displayEmail function. This dataset essentially defines the
+ *  categorization for the nav and allows for nav to dispatch on the basis of
+ *  definitions in the JSON outline for each piece of mail.
+ *
+ *  As an added bonus, it provides an anchor for pinching read totals on nav
+ *  items that track read / unread status.
+ *
+ *  Outline as follows:
+ *  [0] - JSON meta data upon which to key
+ *  [1] - ID for nav item associated with prior key
+ *  [2] - Front loaded text content for nav, defaults to read / unread tracking
+ *  [3] - Num unread mails in key category.
+ *
+ *  There's definitely room for improvement here, lots of unanswered assumptions;
+ *  refactor recommended.
+ *
+ */
+
 var displayEmailMeta  = [
   ['received',  'navinbox',     'Inbox',      0],
   ['tagged',    'navtagged',    'Tagged',     0],
@@ -6,6 +27,15 @@ var displayEmailMeta  = [
   ['draft',     'navdrafts',    'Drafts',     0],
   ['trash',     'navtrash',     'Trash',      0]
 ]
+
+/******************************************************************************
+ *  inbox
+ *
+ *  JSON magic that simulates an inbox. No server involved, so we have to
+ *  fudge. Hopefully, the JSON is self-documenting, but if not, please send
+ *  mail to hamlin.carlisle@gmx.com for details.
+ *
+ */
 
 var inbox = [
   {
@@ -55,6 +85,26 @@ var inbox = [
     trash: 0
   } 
 ];
+
+/******************************************************************************
+ *  displayEmail
+ *
+ *  Args:
+ *    displayType   - Numeric category identifier used to determine which nav
+ *                    category we're displaying.
+ *    id            - Old argument used for id assignment during read / unread
+ *                    tracking. Retained for posterity.
+ *    interfaceText - Old argument used for interface test assignment during
+ *                    read / unread tracking. Retained for posterity.
+ *
+ *  Takes a display type and uses it to populate the roster container with
+ *  email objects whose keys match the given type.
+ *
+ *  Additionally, adds an anonymous event listener to each displayed object which
+ *  allows for the associated contents to be displayed in the econtent element,
+ *  and tracks read / unread status using indexed object keys and the
+ *  displayEmailMeta indexing array.
+ */
 
 var displayEmail      = function(displayType, id, interfaceText) {
   var emails = 0;
@@ -112,7 +162,24 @@ var displayEmail      = function(displayType, id, interfaceText) {
   }
 };
 
+/******************************************************************************
+ *  composeEmail
+ *
+ *  STUB: Should enable email composition functionality.
+ *
+ */
+
 var composeEmail      = function() {};
+
+/******************************************************************************
+ *  enableReply
+ *
+ *  Args: none
+ *
+ *  Composes a reply to the currently selected email object, makes the reply
+ *  apparatus visible to the user, and provides focus to the reply apparatus.
+ *
+ */
 
 var enableReply       = function() {
   document.getElementById('ereply-element').style.visibility  = 'visible';
@@ -121,7 +188,28 @@ var enableReply       = function() {
   document.getElementById('ereplytext').value                 = 'At ' + inbox[document.getElementById('econtent').getAttribute('index')].time + ', ' + inbox[document.getElementById('econtent').getAttribute('index')].senderProper + ' wrote: \n> ' + inbox[document.getElementById('econtent').getAttribute('index')].content.split('<br>').join('\n').split('&gt;').join('>') + '\n\n\n';
 };
 
+/******************************************************************************
+ *  etdots
+ *
+ *  STUB: Function of etdots left as exercise for the reviewer.
+ *
+ */
+
 var etdots            = function() {};
+
+/******************************************************************************
+ *  postReply
+ *
+ *  Args: none
+ *
+ *  Gathers a composed reply from the reply apparatus and uses it to create a
+ *  new email object in the inbox collection, correctly categorized as a sent
+ *  email, with correct subject, content, sender, receiver, and timestamp.
+ *
+ *  Additionally, hides reply apparatus and informs user that the reply has
+ *  been sent.
+ *
+ */
 
 var postReply         = function() {
   document.getElementById('ereply-element').style.visibility  = 'hidden';
@@ -150,7 +238,27 @@ var postReply         = function() {
   alert('Reply sent!');
 };
 
+/******************************************************************************
+ *  searchEmail
+ *
+ *  STUB: Should enable search functionality within displayed email objects.
+ *
+ */
+
 var searchEmail       = function(searchText) {};
+
+/******************************************************************************
+ *  trashEmail
+ *
+ *  Args: none
+ *
+ *  Marks selected email object as trash.
+ *
+ *  Additionally hides econtent element and re-displays current content
+ *  category, so as to visually remove trashed mail. Mail trashed in the manner
+ *  may be revisited in the 'Trash' nav category.
+ *
+ */
 
 var trashEmail        = function() {
   inbox[document.getElementById('econtent').getAttribute('index')].received = 0;
@@ -158,6 +266,19 @@ var trashEmail        = function() {
   toggleContent('hidden');
   displayEmail(document.getElementById('rostercontainer').getAttribute('displaytype'));
 };
+
+/******************************************************************************
+ *  toggleContent
+ *
+ *  Args:
+ *    toggle - values used to specifiy visibility of dependent content
+ *
+ *  This function is poorly named because it was originally going to be
+ *  considerably more widely used. As it stands, it is only used to toggle the
+ *  visibility of elements with a class of 'dependent-content', i.e. those
+ *  elements responsible for displaying the content of selected email objects.
+ *
+ */
 
 var toggleContent     = function(toggle) {
   var b = document.getElementsByClassName('dependent-content');
